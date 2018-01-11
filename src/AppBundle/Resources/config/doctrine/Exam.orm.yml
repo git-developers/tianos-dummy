@@ -1,0 +1,54 @@
+AppBundle\Entity\Exam:
+    type: entity
+    table: exam
+    id:
+        idIncrement:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: id_increment
+            generator:
+                strategy: IDENTITY
+    fields:
+        code:
+            type: string
+            nullable: true
+            length: 45
+            options:
+                fixed: false
+        name:
+            type: string
+            nullable: true
+            length: 45
+            options:
+                fixed: false
+        description:
+            type: text
+            nullable: true
+            length: 65535
+            options:
+                fixed: false
+        createdAt:
+            type: datetime
+            nullable: true
+            column: created_at
+        updatedAt:
+            type: datetime
+            nullable: true
+            column: updated_at
+        isActive:
+            type: boolean
+            nullable: true
+            column: is_active
+    manyToMany:
+        course:
+            targetEntity: Course
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: exam
+            inversedBy: null
+            joinTable: null
+            orderBy: null
+    lifecycleCallbacks: {  }

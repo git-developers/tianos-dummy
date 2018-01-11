@@ -1,0 +1,27 @@
+if (ctx._source.containsKey('simpleTags')) {
+    ctx._source.simpleTags.remove("POLLO-2");
+    ctx._source.simpleTags.add("POLLO-1");
+} else {
+    ctx._source.simpleTags = ["POLLO-1"];
+}
+
+if (ctx._source.containsKey('tagsIds')) {
+    found = false;
+    item_to_remove = 0;
+
+    foreach (item : ctx._source.tagsIds) {
+        if (item == 26) {
+            found = true
+        };
+        if (!found){
+            item_to_remove = item_to_remove + 1;
+        }
+    }
+
+    if (found) {
+        ctx._source.tagsIds.remove(item_to_remove);
+    }
+    ctx._source.tagsIds.add(25);
+} else {
+    ctx._source.tagsIds = [25];
+}

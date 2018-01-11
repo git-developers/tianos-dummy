@@ -1,0 +1,99 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Course
+ *
+ * @ORM\Table(name="course")
+ * @ORM\Entity
+ */
+class Course
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id_increment", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $idIncrement;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="code", type="string", length=45, nullable=true)
+     */
+    private $code;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string", length=45, nullable=true)
+     */
+    private $name;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="created_at", type="datetime", nullable=true)
+     */
+    private $createdAt;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="updated_at", type="datetime", nullable=true)
+     */
+    private $updatedAt;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="is_active", type="boolean", nullable=true)
+     */
+    private $isActive;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Exam", inversedBy="course")
+     * @ORM\JoinTable(name="course_has_exam",
+     *   joinColumns={
+     *     @ORM\JoinColumn(name="course_id", referencedColumnName="id_increment")
+     *   },
+     *   inverseJoinColumns={
+     *     @ORM\JoinColumn(name="exam_id", referencedColumnName="id_increment")
+     *   }
+     * )
+     */
+    private $exam;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\UserTianos", inversedBy="course")
+     * @ORM\JoinTable(name="course_has_user",
+     *   joinColumns={
+     *     @ORM\JoinColumn(name="course_id", referencedColumnName="id_increment")
+     *   },
+     *   inverseJoinColumns={
+     *     @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     *   }
+     * )
+     */
+    private $user;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->exam = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->user = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+}
+

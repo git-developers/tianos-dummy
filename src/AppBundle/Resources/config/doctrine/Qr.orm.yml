@@ -1,0 +1,54 @@
+AppBundle\Entity\Qr:
+    type: entity
+    table: qr
+    id:
+        idIncrement:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: id_increment
+            generator:
+                strategy: IDENTITY
+    fields:
+        cht:
+            type: string
+            nullable: false
+            length: 45
+            options:
+                fixed: false
+        chl:
+            type: text
+            nullable: false
+            length: 65535
+            options:
+                fixed: false
+        chs:
+            type: string
+            nullable: false
+            length: 45
+            options:
+                fixed: false
+        choe:
+            type: string
+            nullable: true
+            length: 45
+            options:
+                fixed: false
+        chld:
+            type: string
+            nullable: true
+            length: 45
+            options:
+                fixed: false
+        created:
+            type: datetime
+            nullable: false
+        updated:
+            type: datetime
+            nullable: true
+        status:
+            type: boolean
+            nullable: false
+    lifecycleCallbacks: {  }

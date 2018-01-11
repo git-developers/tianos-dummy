@@ -1,0 +1,65 @@
+AppBundle\Entity\Files:
+    type: entity
+    table: files
+    uniqueConstraints:
+        id_file_UNIQUE:
+            columns:
+                - id_file
+    id:
+        idIncrement:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: id_increment
+            generator:
+                strategy: IDENTITY
+    fields:
+        idFile:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+            column: id_file
+        slug:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        createdAt:
+            type: datetime
+            nullable: false
+            column: created_at
+        updatedAt:
+            type: datetime
+            nullable: true
+            column: updated_at
+        isActive:
+            type: boolean
+            nullable: false
+            column: is_active
+        name:
+            type: text
+            nullable: false
+            length: 65535
+            options:
+                fixed: false
+        size:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+    manyToMany:
+        user:
+            targetEntity: UserTianos
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: files
+            inversedBy: null
+            joinTable: null
+            orderBy: null
+    lifecycleCallbacks: {  }

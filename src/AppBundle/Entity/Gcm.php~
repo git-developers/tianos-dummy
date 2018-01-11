@@ -1,0 +1,106 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Gcm
+ *
+ * @ORM\Table(name="gcm", uniqueConstraints={@ORM\UniqueConstraint(name="UNIQ_CF0A2136A76ED395", columns={"user_id"})})
+ * @ORM\Entity
+ */
+class Gcm
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id_increment", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $idIncrement;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="click_action", type="string", length=45, nullable=true)
+     */
+    private $clickAction;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="icon", type="string", length=45, nullable=true)
+     */
+    private $icon;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="color", type="string", length=45, nullable=true)
+     */
+    private $color;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="sound", type="string", length=45, nullable=true)
+     */
+    private $sound;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="badge", type="string", length=45, nullable=true)
+     */
+    private $badge;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="title", type="string", length=45, nullable=true)
+     */
+    private $title;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="body", type="text", length=65535, nullable=true)
+     */
+    private $body;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="created", type="datetime", nullable=false)
+     */
+    private $created;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="updated", type="datetime", nullable=true)
+     */
+    private $updated;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="active", type="boolean", nullable=false)
+     */
+    private $active;
+
+    /**
+     * @var \AppBundle\Entity\UserTianos
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\UserTianos")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * })
+     */
+    private $user;
+
+
+}
+

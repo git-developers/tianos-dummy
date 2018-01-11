@@ -1,0 +1,82 @@
+AppBundle\Entity\Gcm:
+    type: entity
+    table: gcm
+    uniqueConstraints:
+        UNIQ_CF0A2136A76ED395:
+            columns:
+                - user_id
+    id:
+        idIncrement:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: id_increment
+            generator:
+                strategy: IDENTITY
+    fields:
+        clickAction:
+            type: string
+            nullable: true
+            length: 45
+            options:
+                fixed: false
+            column: click_action
+        icon:
+            type: string
+            nullable: true
+            length: 45
+            options:
+                fixed: false
+        color:
+            type: string
+            nullable: true
+            length: 45
+            options:
+                fixed: false
+        sound:
+            type: string
+            nullable: true
+            length: 45
+            options:
+                fixed: false
+        badge:
+            type: string
+            nullable: true
+            length: 45
+            options:
+                fixed: false
+        title:
+            type: string
+            nullable: true
+            length: 45
+            options:
+                fixed: false
+        body:
+            type: text
+            nullable: true
+            length: 65535
+            options:
+                fixed: false
+        created:
+            type: datetime
+            nullable: false
+        updated:
+            type: datetime
+            nullable: true
+        active:
+            type: boolean
+            nullable: false
+    manyToOne:
+        user:
+            targetEntity: UserTianos
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                user_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

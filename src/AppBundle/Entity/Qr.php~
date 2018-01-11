@@ -1,0 +1,82 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Qr
+ *
+ * @ORM\Table(name="qr")
+ * @ORM\Entity
+ */
+class Qr
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id_increment", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $idIncrement;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="cht", type="string", length=45, nullable=false)
+     */
+    private $cht;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="chl", type="text", length=65535, nullable=false)
+     */
+    private $chl;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="chs", type="string", length=45, nullable=false)
+     */
+    private $chs;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="choe", type="string", length=45, nullable=true)
+     */
+    private $choe;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="chld", type="string", length=45, nullable=true)
+     */
+    private $chld;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="created", type="datetime", nullable=false)
+     */
+    private $created;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="updated", type="datetime", nullable=true)
+     */
+    private $updated;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="status", type="boolean", nullable=false)
+     */
+    private $status;
+
+
+}
+

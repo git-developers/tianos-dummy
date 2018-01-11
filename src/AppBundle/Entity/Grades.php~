@@ -1,0 +1,78 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Grades
+ *
+ * @ORM\Table(name="grades", indexes={@ORM\Index(name="fk_grades_exam1_idx", columns={"exam_id"})})
+ * @ORM\Entity
+ */
+class Grades
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id_increment", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $idIncrement;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="course_id", type="integer", nullable=true)
+     */
+    private $courseId;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="user_id", type="integer", nullable=true)
+     */
+    private $userId;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="grade", type="integer", nullable=true)
+     */
+    private $grade;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="created_at", type="datetime", nullable=true)
+     */
+    private $createdAt;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="updated_at", type="datetime", nullable=true)
+     */
+    private $updatedAt;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="is_active", type="boolean", nullable=true)
+     */
+    private $isActive;
+
+    /**
+     * @var \AppBundle\Entity\Exam
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Exam")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="exam_id", referencedColumnName="id_increment")
+     * })
+     */
+    private $exam;
+
+
+}
+

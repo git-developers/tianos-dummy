@@ -1,0 +1,62 @@
+AppBundle\Entity\Role:
+    type: entity
+    table: role
+    id:
+        idIncrement:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: id_increment
+            generator:
+                strategy: IDENTITY
+    fields:
+        name:
+            type: string
+            nullable: true
+            length: 100
+            options:
+                fixed: false
+        slug:
+            type: string
+            nullable: false
+            length: 100
+            options:
+                fixed: false
+        groupRol:
+            type: string
+            nullable: true
+            length: 100
+            options:
+                fixed: false
+            column: group_rol
+        groupRolTag:
+            type: string
+            nullable: true
+            length: 100
+            options:
+                fixed: false
+            column: group_rol_tag
+        createdAt:
+            type: datetime
+            nullable: false
+            column: created_at
+        updatedAt:
+            type: datetime
+            nullable: true
+            column: updated_at
+        isActive:
+            type: boolean
+            nullable: false
+            column: is_active
+    manyToMany:
+        profile:
+            targetEntity: Profile
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: role
+            inversedBy: null
+            joinTable: null
+            orderBy: null
+    lifecycleCallbacks: {  }

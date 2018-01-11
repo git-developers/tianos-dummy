@@ -1,0 +1,25 @@
+NOW := $(shell /bin/date "+%Y-%m-%d . %H:%M:%S")
+AUTHOR_EMAIL := "jafeth.bendezu.a@gmail.com"
+AUTHOR_NAME := "Jafeth Bendezu"
+HOST_PROJECT := tianos.com
+DATABASE_NAME := bi_replica #tianos_db
+
+#step 1
+step_1_entity_update:
+	pwd
+	rm -rf src/AppBundle/Resources/config/doctrine/
+	rm -rf src/AppBundle/Entity/
+	php bin/console cache:clear
+	sleep 2;
+	#php bin/console doctrine:database:create --if-not-exists
+	#php bin/console doctrine:mapping:import --force AppBundle yml --filter="$(entity)"
+	php bin/console doctrine:mapping:import --force AppBundle yml
+	php bin/console doctrine:mapping:convert annotation ./src --force
+	#php bin/console doctrine:generate:entities AppBundle:$(entity) --no-backup
+	php bin/console doctrine:generate:entities AppBundle
+
+#step 2
+step_2_doctrine_update:
+	php bin/console doctrine:migration:status
+	php bin/console doctrine:migration:diff
+

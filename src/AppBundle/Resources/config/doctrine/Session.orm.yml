@@ -1,0 +1,45 @@
+AppBundle\Entity\Session:
+    type: entity
+    table: session
+    uniqueConstraints:
+        UNIQ_D044D5D4A76ED395:
+            columns:
+                - user_id
+    id:
+        idIncrement:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: id_increment
+            generator:
+                strategy: IDENTITY
+    fields:
+        token:
+            type: string
+            nullable: true
+            length: 45
+            options:
+                fixed: false
+        created:
+            type: datetime
+            nullable: false
+        updated:
+            type: datetime
+            nullable: true
+        active:
+            type: boolean
+            nullable: false
+    manyToOne:
+        user:
+            targetEntity: UserTianos
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                user_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

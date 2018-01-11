@@ -1,0 +1,59 @@
+AppBundle\Entity\Grades:
+    type: entity
+    table: grades
+    indexes:
+        fk_grades_exam1_idx:
+            columns:
+                - exam_id
+    id:
+        idIncrement:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: id_increment
+            generator:
+                strategy: IDENTITY
+    fields:
+        courseId:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: course_id
+        userId:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: user_id
+        grade:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+        createdAt:
+            type: datetime
+            nullable: true
+            column: created_at
+        updatedAt:
+            type: datetime
+            nullable: true
+            column: updated_at
+        isActive:
+            type: boolean
+            nullable: true
+            column: is_active
+    manyToOne:
+        exam:
+            targetEntity: Exam
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                exam_id:
+                    referencedColumnName: id_increment
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

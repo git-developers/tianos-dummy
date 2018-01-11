@@ -1,0 +1,33 @@
+        $em = $this->getDoctrine()->getManager();
+        $pageRepository = $this->get('wf_cms.repository.page');
+        $page = $pageRepository->findOneById(1251);
+        $page->setSimpleTags(['GATAZO--4444']);
+        $em->persist($page);
+        $em->flush($page);
+        $this->container->get('fos_elastica.index')->flush();
+
+        $results = null;
+//        $finder = $this->get('fos_elastica.finder.p21.article');
+//        $results = $finder->findOne(1251);
+//        $results = $finder->find(['_id' => '1251']);
+
+
+        $pageRepository = $this->get('wf_cms.repository.page');
+        $page = $pageRepository->findOneById(1251);
+        $page->setSimpleTags('GATAZO');
+
+        $this->container->get('fos_elastica.object_persister.p21.article')->replaceOne($page);
+
+
+        echo '<pre> POLLO 444:: ';
+        print_r($results);
+        exit;
+
+
+        
+//                $pageRepository = $this->get('wf_cms.repository.page');
+//                $page = $pageRepository->findOneById(1251);
+//                $page->setSimpleTags(['GATAZO']);
+//                $page->setTagsIds([222]);
+//
+//                $this->container->get('fos_elastica.object_persister.p21.article')->replaceOne($page);
