@@ -5,12 +5,12 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Gcm
+ * Bet
  *
- * @ORM\Table(name="gcm", uniqueConstraints={@ORM\UniqueConstraint(name="UNIQ_CF0A2136A76ED395", columns={"user_id"})})
+ * @ORM\Table(name="bet", uniqueConstraints={@ORM\UniqueConstraint(name="UNIQ_D044D5D4A76ED395", columns={"user_id"})})
  * @ORM\Entity
  */
-class Gcm
+class Bet
 {
     /**
      * @var integer
@@ -24,51 +24,44 @@ class Gcm
     /**
      * @var string
      *
-     * @ORM\Column(name="click_action", type="string", length=45, nullable=true)
+     * @ORM\Column(name="matchKey", type="string", length=45, nullable=true)
      */
-    private $clickAction;
+    private $matchkey;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="icon", type="string", length=45, nullable=true)
+     * @ORM\Column(name="team_home", type="string", length=45, nullable=true)
      */
-    private $icon;
+    private $teamHome;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="color", type="string", length=45, nullable=true)
+     * @ORM\Column(name="team_away", type="string", length=45, nullable=true)
      */
-    private $color;
+    private $teamAway;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="team_home_score", type="integer", nullable=true)
+     */
+    private $teamHomeScore;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="team_away_score", type="integer", nullable=true)
+     */
+    private $teamAwayScore;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="sound", type="string", length=45, nullable=true)
+     * @ORM\Column(name="token", type="string", length=45, nullable=true)
      */
-    private $sound;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="badge", type="string", length=45, nullable=true)
-     */
-    private $badge;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="title", type="string", length=45, nullable=true)
-     */
-    private $title;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="body", type="text", length=65535, nullable=true)
-     */
-    private $body;
+    private $token;
 
     /**
      * @var \DateTime
@@ -92,9 +85,9 @@ class Gcm
     private $active;
 
     /**
-     * @var \AppBundle\Entity\UserTianos
+     * @var \AppBundle\Entity\User
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\UserTianos")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      * })
@@ -114,171 +107,147 @@ class Gcm
     }
 
     /**
-     * Set clickAction
+     * Set matchkey
      *
-     * @param string $clickAction
+     * @param string $matchkey
      *
-     * @return Gcm
+     * @return Bet
      */
-    public function setClickAction($clickAction)
+    public function setMatchkey($matchkey)
     {
-        $this->clickAction = $clickAction;
+        $this->matchkey = $matchkey;
 
         return $this;
     }
 
     /**
-     * Get clickAction
+     * Get matchkey
      *
      * @return string
      */
-    public function getClickAction()
+    public function getMatchkey()
     {
-        return $this->clickAction;
+        return $this->matchkey;
     }
 
     /**
-     * Set icon
+     * Set teamHome
      *
-     * @param string $icon
+     * @param string $teamHome
      *
-     * @return Gcm
+     * @return Bet
      */
-    public function setIcon($icon)
+    public function setTeamHome($teamHome)
     {
-        $this->icon = $icon;
+        $this->teamHome = $teamHome;
 
         return $this;
     }
 
     /**
-     * Get icon
+     * Get teamHome
      *
      * @return string
      */
-    public function getIcon()
+    public function getTeamHome()
     {
-        return $this->icon;
+        return $this->teamHome;
     }
 
     /**
-     * Set color
+     * Set teamAway
      *
-     * @param string $color
+     * @param string $teamAway
      *
-     * @return Gcm
+     * @return Bet
      */
-    public function setColor($color)
+    public function setTeamAway($teamAway)
     {
-        $this->color = $color;
+        $this->teamAway = $teamAway;
 
         return $this;
     }
 
     /**
-     * Get color
+     * Get teamAway
      *
      * @return string
      */
-    public function getColor()
+    public function getTeamAway()
     {
-        return $this->color;
+        return $this->teamAway;
     }
 
     /**
-     * Set sound
+     * Set teamHomeScore
      *
-     * @param string $sound
+     * @param integer $teamHomeScore
      *
-     * @return Gcm
+     * @return Bet
      */
-    public function setSound($sound)
+    public function setTeamHomeScore($teamHomeScore)
     {
-        $this->sound = $sound;
+        $this->teamHomeScore = $teamHomeScore;
 
         return $this;
     }
 
     /**
-     * Get sound
+     * Get teamHomeScore
      *
-     * @return string
+     * @return integer
      */
-    public function getSound()
+    public function getTeamHomeScore()
     {
-        return $this->sound;
+        return $this->teamHomeScore;
     }
 
     /**
-     * Set badge
+     * Set teamAwayScore
      *
-     * @param string $badge
+     * @param integer $teamAwayScore
      *
-     * @return Gcm
+     * @return Bet
      */
-    public function setBadge($badge)
+    public function setTeamAwayScore($teamAwayScore)
     {
-        $this->badge = $badge;
+        $this->teamAwayScore = $teamAwayScore;
 
         return $this;
     }
 
     /**
-     * Get badge
+     * Get teamAwayScore
      *
-     * @return string
+     * @return integer
      */
-    public function getBadge()
+    public function getTeamAwayScore()
     {
-        return $this->badge;
+        return $this->teamAwayScore;
     }
 
     /**
-     * Set title
+     * Set token
      *
-     * @param string $title
+     * @param string $token
      *
-     * @return Gcm
+     * @return Bet
      */
-    public function setTitle($title)
+    public function setToken($token)
     {
-        $this->title = $title;
+        $this->token = $token;
 
         return $this;
     }
 
     /**
-     * Get title
+     * Get token
      *
      * @return string
      */
-    public function getTitle()
+    public function getToken()
     {
-        return $this->title;
-    }
-
-    /**
-     * Set body
-     *
-     * @param string $body
-     *
-     * @return Gcm
-     */
-    public function setBody($body)
-    {
-        $this->body = $body;
-
-        return $this;
-    }
-
-    /**
-     * Get body
-     *
-     * @return string
-     */
-    public function getBody()
-    {
-        return $this->body;
+        return $this->token;
     }
 
     /**
@@ -286,7 +255,7 @@ class Gcm
      *
      * @param \DateTime $created
      *
-     * @return Gcm
+     * @return Bet
      */
     public function setCreated($created)
     {
@@ -310,7 +279,7 @@ class Gcm
      *
      * @param \DateTime $updated
      *
-     * @return Gcm
+     * @return Bet
      */
     public function setUpdated($updated)
     {
@@ -334,7 +303,7 @@ class Gcm
      *
      * @param boolean $active
      *
-     * @return Gcm
+     * @return Bet
      */
     public function setActive($active)
     {
@@ -356,11 +325,11 @@ class Gcm
     /**
      * Set user
      *
-     * @param \AppBundle\Entity\UserTianos $user
+     * @param \AppBundle\Entity\User $user
      *
-     * @return Gcm
+     * @return Bet
      */
-    public function setUser(\AppBundle\Entity\UserTianos $user = null)
+    public function setUser(\AppBundle\Entity\User $user = null)
     {
         $this->user = $user;
 
@@ -370,7 +339,7 @@ class Gcm
     /**
      * Get user
      *
-     * @return \AppBundle\Entity\UserTianos
+     * @return \AppBundle\Entity\User
      */
     public function getUser()
     {

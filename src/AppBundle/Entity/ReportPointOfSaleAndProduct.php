@@ -5,12 +5,12 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Grades
+ * ReportPointOfSaleAndProduct
  *
- * @ORM\Table(name="grades", indexes={@ORM\Index(name="fk_grades_exam1_idx", columns={"exam_id"})})
+ * @ORM\Table(name="report_point_of_sale_and_product", indexes={@ORM\Index(name="fk_report_point_of_sale_and_product_point_of_sale_has_produ_idx", columns={"point_of_sale_has_product_id"})})
  * @ORM\Entity
  */
-class Grades
+class ReportPointOfSaleAndProduct
 {
     /**
      * @var integer
@@ -22,30 +22,23 @@ class Grades
     private $idIncrement;
 
     /**
-     * @var integer
+     * @var \DateTime
      *
-     * @ORM\Column(name="course_id", type="integer", nullable=true)
+     * @ORM\Column(name="time_delivery", type="datetime", nullable=true)
      */
-    private $courseId;
+    private $timeDelivery;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="user_id", type="integer", nullable=true)
+     * @ORM\Column(name="stock_out", type="integer", nullable=false)
      */
-    private $userId;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="grade", type="integer", nullable=true)
-     */
-    private $grade;
+    private $stockOut;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="created_at", type="datetime", nullable=true)
+     * @ORM\Column(name="created_at", type="datetime", nullable=false)
      */
     private $createdAt;
 
@@ -59,19 +52,19 @@ class Grades
     /**
      * @var boolean
      *
-     * @ORM\Column(name="is_active", type="boolean", nullable=true)
+     * @ORM\Column(name="is_active", type="boolean", nullable=false)
      */
     private $isActive;
 
     /**
-     * @var \AppBundle\Entity\Exam
+     * @var \AppBundle\Entity\PointOfSaleHasProduct
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Exam")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\PointOfSaleHasProduct")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="exam_id", referencedColumnName="id_increment")
+     *   @ORM\JoinColumn(name="point_of_sale_has_product_id", referencedColumnName="id_increment")
      * })
      */
-    private $exam;
+    private $pointOfSaleHasProduct;
 
 
 
@@ -86,75 +79,51 @@ class Grades
     }
 
     /**
-     * Set courseId
+     * Set timeDelivery
      *
-     * @param integer $courseId
+     * @param \DateTime $timeDelivery
      *
-     * @return Grades
+     * @return ReportPointOfSaleAndProduct
      */
-    public function setCourseId($courseId)
+    public function setTimeDelivery($timeDelivery)
     {
-        $this->courseId = $courseId;
+        $this->timeDelivery = $timeDelivery;
 
         return $this;
     }
 
     /**
-     * Get courseId
+     * Get timeDelivery
      *
-     * @return integer
+     * @return \DateTime
      */
-    public function getCourseId()
+    public function getTimeDelivery()
     {
-        return $this->courseId;
+        return $this->timeDelivery;
     }
 
     /**
-     * Set userId
+     * Set stockOut
      *
-     * @param integer $userId
+     * @param integer $stockOut
      *
-     * @return Grades
+     * @return ReportPointOfSaleAndProduct
      */
-    public function setUserId($userId)
+    public function setStockOut($stockOut)
     {
-        $this->userId = $userId;
+        $this->stockOut = $stockOut;
 
         return $this;
     }
 
     /**
-     * Get userId
+     * Get stockOut
      *
      * @return integer
      */
-    public function getUserId()
+    public function getStockOut()
     {
-        return $this->userId;
-    }
-
-    /**
-     * Set grade
-     *
-     * @param integer $grade
-     *
-     * @return Grades
-     */
-    public function setGrade($grade)
-    {
-        $this->grade = $grade;
-
-        return $this;
-    }
-
-    /**
-     * Get grade
-     *
-     * @return integer
-     */
-    public function getGrade()
-    {
-        return $this->grade;
+        return $this->stockOut;
     }
 
     /**
@@ -162,7 +131,7 @@ class Grades
      *
      * @param \DateTime $createdAt
      *
-     * @return Grades
+     * @return ReportPointOfSaleAndProduct
      */
     public function setCreatedAt($createdAt)
     {
@@ -186,7 +155,7 @@ class Grades
      *
      * @param \DateTime $updatedAt
      *
-     * @return Grades
+     * @return ReportPointOfSaleAndProduct
      */
     public function setUpdatedAt($updatedAt)
     {
@@ -210,7 +179,7 @@ class Grades
      *
      * @param boolean $isActive
      *
-     * @return Grades
+     * @return ReportPointOfSaleAndProduct
      */
     public function setIsActive($isActive)
     {
@@ -230,26 +199,26 @@ class Grades
     }
 
     /**
-     * Set exam
+     * Set pointOfSaleHasProduct
      *
-     * @param \AppBundle\Entity\Exam $exam
+     * @param \AppBundle\Entity\PointOfSaleHasProduct $pointOfSaleHasProduct
      *
-     * @return Grades
+     * @return ReportPointOfSaleAndProduct
      */
-    public function setExam(\AppBundle\Entity\Exam $exam = null)
+    public function setPointOfSaleHasProduct(\AppBundle\Entity\PointOfSaleHasProduct $pointOfSaleHasProduct = null)
     {
-        $this->exam = $exam;
+        $this->pointOfSaleHasProduct = $pointOfSaleHasProduct;
 
         return $this;
     }
 
     /**
-     * Get exam
+     * Get pointOfSaleHasProduct
      *
-     * @return \AppBundle\Entity\Exam
+     * @return \AppBundle\Entity\PointOfSaleHasProduct
      */
-    public function getExam()
+    public function getPointOfSaleHasProduct()
     {
-        return $this->exam;
+        return $this->pointOfSaleHasProduct;
     }
 }

@@ -1,6 +1,6 @@
-AppBundle\Entity\Qr:
+AppBundle\Entity\Product:
     type: entity
-    table: qr
+    table: product
     id:
         idIncrement:
             type: integer
@@ -12,43 +12,40 @@ AppBundle\Entity\Qr:
             generator:
                 strategy: IDENTITY
     fields:
-        cht:
+        code:
             type: string
-            nullable: false
+            nullable: true
             length: 45
             options:
                 fixed: false
-        chl:
-            type: text
+        name:
+            type: string
             nullable: false
+            length: 150
+            options:
+                fixed: false
+        slug:
+            type: string
+            nullable: true
+            length: 150
+            options:
+                fixed: false
+        image:
+            type: text
+            nullable: true
             length: 65535
             options:
                 fixed: false
-        chs:
-            type: string
-            nullable: false
-            length: 45
-            options:
-                fixed: false
-        choe:
-            type: string
-            nullable: true
-            length: 45
-            options:
-                fixed: false
-        chld:
-            type: string
-            nullable: true
-            length: 45
-            options:
-                fixed: false
-        created:
+        createdAt:
             type: datetime
             nullable: false
-        updated:
+            column: created_at
+        updatedAt:
             type: datetime
             nullable: true
-        status:
+            column: updated_at
+        isActive:
             type: boolean
-            nullable: false
+            nullable: true
+            column: is_active
     lifecycleCallbacks: {  }

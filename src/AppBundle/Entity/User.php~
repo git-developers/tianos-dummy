@@ -5,12 +5,12 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * UserTianos
+ * User
  *
- * @ORM\Table(name="user_tianos", uniqueConstraints={@ORM\UniqueConstraint(name="email_UNIQUE", columns={"email"}), @ORM\UniqueConstraint(name="username_UNIQUE", columns={"username"}), @ORM\UniqueConstraint(name="dni_UNIQUE", columns={"dni"})}, indexes={@ORM\Index(name="FK_8D93D649CCFA12B8", columns={"profile_id"})})
+ * @ORM\Table(name="user", uniqueConstraints={@ORM\UniqueConstraint(name="email_UNIQUE", columns={"email"}), @ORM\UniqueConstraint(name="username_UNIQUE", columns={"username"}), @ORM\UniqueConstraint(name="dni_UNIQUE", columns={"dni"})}, indexes={@ORM\Index(name="FK_8D93D649CCFA12B8", columns={"profile_id"})})
  * @ORM\Entity
  */
-class UserTianos
+class User
 {
     /**
      * @var integer
@@ -48,20 +48,6 @@ class UserTianos
      * @ORM\Column(name="device_code", type="string", length=100, nullable=true)
      */
     private $deviceCode;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="password", type="string", length=100, nullable=true)
-     */
-    private $password;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="salt", type="string", length=45, nullable=true)
-     */
-    private $salt;
 
     /**
      * @var string
@@ -138,7 +124,7 @@ class UserTianos
      *
      * @ORM\Column(name="is_active", type="boolean", nullable=false)
      */
-    private $isActive = '1';
+    private $isActive;
 
     /**
      * @var \DateTime
@@ -160,40 +146,24 @@ class UserTianos
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Course", mappedBy="user")
-     */
-    private $course;
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     *
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\GroupOfUsers", mappedBy="user")
-     */
-    private $groupOfUsers;
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     *
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Files", inversedBy="user")
-     * @ORM\JoinTable(name="user_has_files",
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\PointOfSale", inversedBy="user")
+     * @ORM\JoinTable(name="user_has_point_of_sale",
      *   joinColumns={
      *     @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      *   },
      *   inverseJoinColumns={
-     *     @ORM\JoinColumn(name="files_id", referencedColumnName="id_increment")
+     *     @ORM\JoinColumn(name="point_of_sale_id", referencedColumnName="id_increment")
      *   }
      * )
      */
-    private $files;
+    private $pointOfSale;
 
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->course = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->groupOfUsers = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->files = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->pointOfSale = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
 }

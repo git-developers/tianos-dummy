@@ -1,0 +1,108 @@
+AppBundle\Entity\PointOfSale:
+    type: entity
+    table: point_of_sale
+    indexes:
+        fk_point_of_sale_point_of_sale1_idx:
+            columns:
+                - point_of_sale_id
+    uniqueConstraints:
+        code_UNIQUE:
+            columns:
+                - code
+    id:
+        idIncrement:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: id_increment
+            generator:
+                strategy: IDENTITY
+    fields:
+        code:
+            type: string
+            nullable: true
+            length: 45
+            options:
+                fixed: false
+        name:
+            type: string
+            nullable: true
+            length: 100
+            options:
+                fixed: false
+        slug:
+            type: string
+            nullable: false
+            length: 100
+            options:
+                fixed: false
+        latitude:
+            type: decimal
+            nullable: true
+            precision: 11
+            scale: 8
+        longitude:
+            type: decimal
+            nullable: true
+            precision: 11
+            scale: 8
+        description:
+            type: text
+            nullable: true
+            length: 65535
+            options:
+                fixed: false
+        telephone:
+            type: text
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+        precioPorHora:
+            type: text
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+            column: precio_por_hora
+        image:
+            type: text
+            nullable: true
+            length: 65535
+            options:
+                fixed: false
+        createdAt:
+            type: datetime
+            nullable: false
+            column: created_at
+        updatedAt:
+            type: datetime
+            nullable: true
+            column: updated_at
+        isActive:
+            type: boolean
+            nullable: true
+            column: is_active
+    manyToOne:
+        pointOfSale:
+            targetEntity: PointOfSale
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                point_of_sale_id:
+                    referencedColumnName: id_increment
+            orphanRemoval: false
+    manyToMany:
+        user:
+            targetEntity: User
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: pointOfSale
+            inversedBy: null
+            joinTable: null
+            orderBy: null
+    lifecycleCallbacks: {  }

@@ -5,12 +5,12 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Exam
+ * Product
  *
- * @ORM\Table(name="exam")
+ * @ORM\Table(name="product")
  * @ORM\Entity
  */
-class Exam
+class Product
 {
     /**
      * @var integer
@@ -31,21 +31,28 @@ class Exam
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=45, nullable=true)
+     * @ORM\Column(name="name", type="string", length=150, nullable=false)
      */
     private $name;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="text", length=65535, nullable=true)
+     * @ORM\Column(name="slug", type="string", length=150, nullable=true)
      */
-    private $description;
+    private $slug;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="image", type="text", length=65535, nullable=true)
+     */
+    private $image;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="created_at", type="datetime", nullable=true)
+     * @ORM\Column(name="created_at", type="datetime", nullable=false)
      */
     private $createdAt;
 
@@ -63,20 +70,6 @@ class Exam
      */
     private $isActive;
 
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     *
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Course", mappedBy="exam")
-     */
-    private $course;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->course = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
 }
 

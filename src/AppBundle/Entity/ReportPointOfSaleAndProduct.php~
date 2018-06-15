@@ -1,0 +1,71 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * ReportPointOfSaleAndProduct
+ *
+ * @ORM\Table(name="report_point_of_sale_and_product", indexes={@ORM\Index(name="fk_report_point_of_sale_and_product_point_of_sale_has_produ_idx", columns={"point_of_sale_has_product_id"})})
+ * @ORM\Entity
+ */
+class ReportPointOfSaleAndProduct
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id_increment", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $idIncrement;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="time_delivery", type="datetime", nullable=true)
+     */
+    private $timeDelivery;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="stock_out", type="integer", nullable=false)
+     */
+    private $stockOut;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="created_at", type="datetime", nullable=false)
+     */
+    private $createdAt;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="updated_at", type="datetime", nullable=true)
+     */
+    private $updatedAt;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="is_active", type="boolean", nullable=false)
+     */
+    private $isActive;
+
+    /**
+     * @var \AppBundle\Entity\PointOfSaleHasProduct
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\PointOfSaleHasProduct")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="point_of_sale_has_product_id", referencedColumnName="id_increment")
+     * })
+     */
+    private $pointOfSaleHasProduct;
+
+
+}
+

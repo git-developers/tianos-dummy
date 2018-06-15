@@ -5,12 +5,12 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Course
+ * Category
  *
- * @ORM\Table(name="course")
+ * @ORM\Table(name="category", uniqueConstraints={@ORM\UniqueConstraint(name="code_UNIQUE", columns={"code"})}, indexes={@ORM\Index(name="fk_category_category1_idx", columns={"category_id"})})
  * @ORM\Entity
  */
-class Course
+class Category
 {
     /**
      * @var integer
@@ -31,9 +31,16 @@ class Course
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=45, nullable=true)
+     * @ORM\Column(name="name", type="string", length=150, nullable=true)
      */
     private $name;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="slug", type="string", length=150, nullable=true)
+     */
+    private $slug;
 
     /**
      * @var \DateTime
@@ -57,43 +64,15 @@ class Course
     private $isActive;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
+     * @var \AppBundle\Entity\Category
      *
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Exam", inversedBy="course")
-     * @ORM\JoinTable(name="course_has_exam",
-     *   joinColumns={
-     *     @ORM\JoinColumn(name="course_id", referencedColumnName="id_increment")
-     *   },
-     *   inverseJoinColumns={
-     *     @ORM\JoinColumn(name="exam_id", referencedColumnName="id_increment")
-     *   }
-     * )
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Category")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="category_id", referencedColumnName="id_increment")
+     * })
      */
-    private $exam;
+    private $category;
 
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     *
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\UserTianos", inversedBy="course")
-     * @ORM\JoinTable(name="course_has_user",
-     *   joinColumns={
-     *     @ORM\JoinColumn(name="course_id", referencedColumnName="id_increment")
-     *   },
-     *   inverseJoinColumns={
-     *     @ORM\JoinColumn(name="user_id", referencedColumnName="id")
-     *   }
-     * )
-     */
-    private $user;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->exam = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->user = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
 
     /**
@@ -111,7 +90,7 @@ class Course
      *
      * @param string $code
      *
-     * @return Course
+     * @return Category
      */
     public function setCode($code)
     {
@@ -135,7 +114,7 @@ class Course
      *
      * @param string $name
      *
-     * @return Course
+     * @return Category
      */
     public function setName($name)
     {
@@ -155,11 +134,35 @@ class Course
     }
 
     /**
+     * Set slug
+     *
+     * @param string $slug
+     *
+     * @return Category
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
      * Set createdAt
      *
      * @param \DateTime $createdAt
      *
-     * @return Course
+     * @return Category
      */
     public function setCreatedAt($createdAt)
     {
@@ -183,7 +186,7 @@ class Course
      *
      * @param \DateTime $updatedAt
      *
-     * @return Course
+     * @return Category
      */
     public function setUpdatedAt($updatedAt)
     {
@@ -207,7 +210,7 @@ class Course
      *
      * @param boolean $isActive
      *
-     * @return Course
+     * @return Category
      */
     public function setIsActive($isActive)
     {
@@ -227,70 +230,26 @@ class Course
     }
 
     /**
-     * Add exam
+     * Set category
      *
-     * @param \AppBundle\Entity\Exam $exam
+     * @param \AppBundle\Entity\Category $category
      *
-     * @return Course
+     * @return Category
      */
-    public function addExam(\AppBundle\Entity\Exam $exam)
+    public function setCategory(\AppBundle\Entity\Category $category = null)
     {
-        $this->exam[] = $exam;
+        $this->category = $category;
 
         return $this;
     }
 
     /**
-     * Remove exam
+     * Get category
      *
-     * @param \AppBundle\Entity\Exam $exam
+     * @return \AppBundle\Entity\Category
      */
-    public function removeExam(\AppBundle\Entity\Exam $exam)
+    public function getCategory()
     {
-        $this->exam->removeElement($exam);
-    }
-
-    /**
-     * Get exam
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getExam()
-    {
-        return $this->exam;
-    }
-
-    /**
-     * Add user
-     *
-     * @param \AppBundle\Entity\UserTianos $user
-     *
-     * @return Course
-     */
-    public function addUser(\AppBundle\Entity\UserTianos $user)
-    {
-        $this->user[] = $user;
-
-        return $this;
-    }
-
-    /**
-     * Remove user
-     *
-     * @param \AppBundle\Entity\UserTianos $user
-     */
-    public function removeUser(\AppBundle\Entity\UserTianos $user)
-    {
-        $this->user->removeElement($user);
-    }
-
-    /**
-     * Get user
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getUser()
-    {
-        return $this->user;
+        return $this->category;
     }
 }

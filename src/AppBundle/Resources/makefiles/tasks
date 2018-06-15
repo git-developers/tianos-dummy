@@ -20,6 +20,13 @@ step_1_entity_update:
 
 #step 2
 step_2_doctrine_update:
+	make migrate_delete
+	php bin/console doctrine:database:drop --force --if-exists
+	php bin/console doctrine:database:create --if-not-exists
 	php bin/console doctrine:migration:status
 	php bin/console doctrine:migration:diff
+	php bin/console doctrine:migration:migrate  --no-interaction
 
+migrate_delete:
+	@echo =========== Migrations: delete all ===========;
+	rm -rf $$PWD/app/DoctrineMigrations

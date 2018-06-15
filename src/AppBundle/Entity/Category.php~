@@ -5,12 +5,12 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Grades
+ * Category
  *
- * @ORM\Table(name="grades", indexes={@ORM\Index(name="fk_grades_exam1_idx", columns={"exam_id"})})
+ * @ORM\Table(name="category", uniqueConstraints={@ORM\UniqueConstraint(name="code_UNIQUE", columns={"code"})}, indexes={@ORM\Index(name="fk_category_category1_idx", columns={"category_id"})})
  * @ORM\Entity
  */
-class Grades
+class Category
 {
     /**
      * @var integer
@@ -22,25 +22,25 @@ class Grades
     private $idIncrement;
 
     /**
-     * @var integer
+     * @var string
      *
-     * @ORM\Column(name="course_id", type="integer", nullable=true)
+     * @ORM\Column(name="code", type="string", length=45, nullable=true)
      */
-    private $courseId;
+    private $code;
 
     /**
-     * @var integer
+     * @var string
      *
-     * @ORM\Column(name="user_id", type="integer", nullable=true)
+     * @ORM\Column(name="name", type="string", length=150, nullable=true)
      */
-    private $userId;
+    private $name;
 
     /**
-     * @var integer
+     * @var string
      *
-     * @ORM\Column(name="grade", type="integer", nullable=true)
+     * @ORM\Column(name="slug", type="string", length=150, nullable=true)
      */
-    private $grade;
+    private $slug;
 
     /**
      * @var \DateTime
@@ -64,14 +64,14 @@ class Grades
     private $isActive;
 
     /**
-     * @var \AppBundle\Entity\Exam
+     * @var \AppBundle\Entity\Category
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Exam")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Category")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="exam_id", referencedColumnName="id_increment")
+     *   @ORM\JoinColumn(name="category_id", referencedColumnName="id_increment")
      * })
      */
-    private $exam;
+    private $category;
 
 
 }

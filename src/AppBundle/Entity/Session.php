@@ -50,9 +50,9 @@ class Session
     private $active;
 
     /**
-     * @var \AppBundle\Entity\UserTianos
+     * @var \AppBundle\Entity\User
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\UserTianos")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      * })
@@ -170,11 +170,11 @@ class Session
     /**
      * Set user
      *
-     * @param \AppBundle\Entity\UserTianos $user
+     * @param \AppBundle\Entity\User $user
      *
      * @return Session
      */
-    public function setUser(\AppBundle\Entity\UserTianos $user = null)
+    public function setUser(\AppBundle\Entity\User $user = null)
     {
         $this->user = $user;
 
@@ -184,7 +184,7 @@ class Session
     /**
      * Get user
      *
-     * @return \AppBundle\Entity\UserTianos
+     * @return \AppBundle\Entity\User
      */
     public function getUser()
     {

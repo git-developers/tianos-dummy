@@ -1,6 +1,6 @@
-AppBundle\Entity\UserTianos:
+AppBundle\Entity\User:
     type: entity
-    table: user_tianos
+    table: user
     indexes:
         FK_8D93D649CCFA12B8:
             columns:
@@ -50,18 +50,6 @@ AppBundle\Entity\UserTianos:
             options:
                 fixed: false
             column: device_code
-        password:
-            type: string
-            nullable: true
-            length: 100
-            options:
-                fixed: false
-        salt:
-            type: string
-            nullable: true
-            length: 45
-            options:
-                fixed: false
         dni:
             type: string
             nullable: true
@@ -119,8 +107,6 @@ AppBundle\Entity\UserTianos:
         isActive:
             type: boolean
             nullable: false
-            options:
-                default: '1'
             column: is_active
         lastAccess:
             type: datetime
@@ -138,37 +124,21 @@ AppBundle\Entity\UserTianos:
                     referencedColumnName: id_increment
             orphanRemoval: false
     manyToMany:
-        course:
-            targetEntity: Course
-            cascade: {  }
-            fetch: LAZY
-            mappedBy: user
-            inversedBy: null
-            joinTable: null
-            orderBy: null
-        groupOfUsers:
-            targetEntity: GroupOfUsers
-            cascade: {  }
-            fetch: LAZY
-            mappedBy: user
-            inversedBy: null
-            joinTable: null
-            orderBy: null
-        files:
-            targetEntity: Files
+        pointOfSale:
+            targetEntity: PointOfSale
             cascade: {  }
             fetch: LAZY
             mappedBy: null
             inversedBy: user
             joinTable:
-                name: user_has_files
+                name: user_has_point_of_sale
                 joinColumns:
                     -
                         name: user_id
                         referencedColumnName: id
                 inverseJoinColumns:
                     -
-                        name: files_id
+                        name: point_of_sale_id
                         referencedColumnName: id_increment
             orderBy: null
     lifecycleCallbacks: {  }

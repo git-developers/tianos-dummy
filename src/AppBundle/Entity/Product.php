@@ -5,12 +5,12 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Exam
+ * Product
  *
- * @ORM\Table(name="exam")
+ * @ORM\Table(name="product")
  * @ORM\Entity
  */
-class Exam
+class Product
 {
     /**
      * @var integer
@@ -31,21 +31,28 @@ class Exam
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=45, nullable=true)
+     * @ORM\Column(name="name", type="string", length=150, nullable=false)
      */
     private $name;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="text", length=65535, nullable=true)
+     * @ORM\Column(name="slug", type="string", length=150, nullable=true)
      */
-    private $description;
+    private $slug;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="image", type="text", length=65535, nullable=true)
+     */
+    private $image;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="created_at", type="datetime", nullable=true)
+     * @ORM\Column(name="created_at", type="datetime", nullable=false)
      */
     private $createdAt;
 
@@ -63,20 +70,6 @@ class Exam
      */
     private $isActive;
 
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     *
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Course", mappedBy="exam")
-     */
-    private $course;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->course = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
 
     /**
@@ -94,7 +87,7 @@ class Exam
      *
      * @param string $code
      *
-     * @return Exam
+     * @return Product
      */
     public function setCode($code)
     {
@@ -118,7 +111,7 @@ class Exam
      *
      * @param string $name
      *
-     * @return Exam
+     * @return Product
      */
     public function setName($name)
     {
@@ -138,27 +131,51 @@ class Exam
     }
 
     /**
-     * Set description
+     * Set slug
      *
-     * @param string $description
+     * @param string $slug
      *
-     * @return Exam
+     * @return Product
      */
-    public function setDescription($description)
+    public function setSlug($slug)
     {
-        $this->description = $description;
+        $this->slug = $slug;
 
         return $this;
     }
 
     /**
-     * Get description
+     * Get slug
      *
      * @return string
      */
-    public function getDescription()
+    public function getSlug()
     {
-        return $this->description;
+        return $this->slug;
+    }
+
+    /**
+     * Set image
+     *
+     * @param string $image
+     *
+     * @return Product
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get image
+     *
+     * @return string
+     */
+    public function getImage()
+    {
+        return $this->image;
     }
 
     /**
@@ -166,7 +183,7 @@ class Exam
      *
      * @param \DateTime $createdAt
      *
-     * @return Exam
+     * @return Product
      */
     public function setCreatedAt($createdAt)
     {
@@ -190,7 +207,7 @@ class Exam
      *
      * @param \DateTime $updatedAt
      *
-     * @return Exam
+     * @return Product
      */
     public function setUpdatedAt($updatedAt)
     {
@@ -214,7 +231,7 @@ class Exam
      *
      * @param boolean $isActive
      *
-     * @return Exam
+     * @return Product
      */
     public function setIsActive($isActive)
     {
@@ -231,39 +248,5 @@ class Exam
     public function getIsActive()
     {
         return $this->isActive;
-    }
-
-    /**
-     * Add course
-     *
-     * @param \AppBundle\Entity\Course $course
-     *
-     * @return Exam
-     */
-    public function addCourse(\AppBundle\Entity\Course $course)
-    {
-        $this->course[] = $course;
-
-        return $this;
-    }
-
-    /**
-     * Remove course
-     *
-     * @param \AppBundle\Entity\Course $course
-     */
-    public function removeCourse(\AppBundle\Entity\Course $course)
-    {
-        $this->course->removeElement($course);
-    }
-
-    /**
-     * Get course
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getCourse()
-    {
-        return $this->course;
     }
 }

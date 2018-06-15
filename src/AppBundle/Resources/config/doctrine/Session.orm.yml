@@ -33,7 +33,7 @@ AppBundle\Entity\Session:
             nullable: false
     manyToOne:
         user:
-            targetEntity: UserTianos
+            targetEntity: User
             cascade: {  }
             fetch: LAZY
             mappedBy: null

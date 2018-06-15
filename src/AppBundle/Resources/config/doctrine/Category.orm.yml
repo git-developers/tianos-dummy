@@ -1,6 +1,14 @@
-AppBundle\Entity\Exam:
+AppBundle\Entity\Category:
     type: entity
-    table: exam
+    table: category
+    indexes:
+        fk_category_category1_idx:
+            columns:
+                - category_id
+    uniqueConstraints:
+        code_UNIQUE:
+            columns:
+                - code
     id:
         idIncrement:
             type: integer
@@ -21,13 +29,13 @@ AppBundle\Entity\Exam:
         name:
             type: string
             nullable: true
-            length: 45
+            length: 150
             options:
                 fixed: false
-        description:
-            type: text
+        slug:
+            type: string
             nullable: true
-            length: 65535
+            length: 150
             options:
                 fixed: false
         createdAt:
@@ -42,13 +50,15 @@ AppBundle\Entity\Exam:
             type: boolean
             nullable: true
             column: is_active
-    manyToMany:
-        course:
-            targetEntity: Course
+    manyToOne:
+        category:
+            targetEntity: Category
             cascade: {  }
             fetch: LAZY
-            mappedBy: exam
+            mappedBy: null
             inversedBy: null
-            joinTable: null
-            orderBy: null
+            joinColumns:
+                category_id:
+                    referencedColumnName: id_increment
+            orphanRemoval: false
     lifecycleCallbacks: {  }

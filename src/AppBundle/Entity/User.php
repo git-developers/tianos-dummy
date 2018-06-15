@@ -5,12 +5,12 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * UserTianos
+ * User
  *
- * @ORM\Table(name="user_tianos", uniqueConstraints={@ORM\UniqueConstraint(name="email_UNIQUE", columns={"email"}), @ORM\UniqueConstraint(name="username_UNIQUE", columns={"username"}), @ORM\UniqueConstraint(name="dni_UNIQUE", columns={"dni"})}, indexes={@ORM\Index(name="FK_8D93D649CCFA12B8", columns={"profile_id"})})
+ * @ORM\Table(name="user", uniqueConstraints={@ORM\UniqueConstraint(name="email_UNIQUE", columns={"email"}), @ORM\UniqueConstraint(name="username_UNIQUE", columns={"username"}), @ORM\UniqueConstraint(name="dni_UNIQUE", columns={"dni"})}, indexes={@ORM\Index(name="FK_8D93D649CCFA12B8", columns={"profile_id"})})
  * @ORM\Entity
  */
-class UserTianos
+class User
 {
     /**
      * @var integer
@@ -48,20 +48,6 @@ class UserTianos
      * @ORM\Column(name="device_code", type="string", length=100, nullable=true)
      */
     private $deviceCode;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="password", type="string", length=100, nullable=true)
-     */
-    private $password;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="salt", type="string", length=45, nullable=true)
-     */
-    private $salt;
 
     /**
      * @var string
@@ -138,7 +124,7 @@ class UserTianos
      *
      * @ORM\Column(name="is_active", type="boolean", nullable=false)
      */
-    private $isActive = '1';
+    private $isActive;
 
     /**
      * @var \DateTime
@@ -160,40 +146,24 @@ class UserTianos
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Course", mappedBy="user")
-     */
-    private $course;
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     *
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\GroupOfUsers", mappedBy="user")
-     */
-    private $groupOfUsers;
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     *
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Files", inversedBy="user")
-     * @ORM\JoinTable(name="user_has_files",
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\PointOfSale", inversedBy="user")
+     * @ORM\JoinTable(name="user_has_point_of_sale",
      *   joinColumns={
      *     @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      *   },
      *   inverseJoinColumns={
-     *     @ORM\JoinColumn(name="files_id", referencedColumnName="id_increment")
+     *     @ORM\JoinColumn(name="point_of_sale_id", referencedColumnName="id_increment")
      *   }
      * )
      */
-    private $files;
+    private $pointOfSale;
 
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->course = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->groupOfUsers = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->files = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->pointOfSale = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
 
@@ -212,7 +182,7 @@ class UserTianos
      *
      * @param integer $clientId
      *
-     * @return UserTianos
+     * @return User
      */
     public function setClientId($clientId)
     {
@@ -236,7 +206,7 @@ class UserTianos
      *
      * @param string $username
      *
-     * @return UserTianos
+     * @return User
      */
     public function setUsername($username)
     {
@@ -260,7 +230,7 @@ class UserTianos
      *
      * @param string $slug
      *
-     * @return UserTianos
+     * @return User
      */
     public function setSlug($slug)
     {
@@ -284,7 +254,7 @@ class UserTianos
      *
      * @param string $deviceCode
      *
-     * @return UserTianos
+     * @return User
      */
     public function setDeviceCode($deviceCode)
     {
@@ -304,59 +274,11 @@ class UserTianos
     }
 
     /**
-     * Set password
-     *
-     * @param string $password
-     *
-     * @return UserTianos
-     */
-    public function setPassword($password)
-    {
-        $this->password = $password;
-
-        return $this;
-    }
-
-    /**
-     * Get password
-     *
-     * @return string
-     */
-    public function getPassword()
-    {
-        return $this->password;
-    }
-
-    /**
-     * Set salt
-     *
-     * @param string $salt
-     *
-     * @return UserTianos
-     */
-    public function setSalt($salt)
-    {
-        $this->salt = $salt;
-
-        return $this;
-    }
-
-    /**
-     * Get salt
-     *
-     * @return string
-     */
-    public function getSalt()
-    {
-        return $this->salt;
-    }
-
-    /**
      * Set dni
      *
      * @param string $dni
      *
-     * @return UserTianos
+     * @return User
      */
     public function setDni($dni)
     {
@@ -380,7 +302,7 @@ class UserTianos
      *
      * @param string $name
      *
-     * @return UserTianos
+     * @return User
      */
     public function setName($name)
     {
@@ -404,7 +326,7 @@ class UserTianos
      *
      * @param string $lastName
      *
-     * @return UserTianos
+     * @return User
      */
     public function setLastName($lastName)
     {
@@ -428,7 +350,7 @@ class UserTianos
      *
      * @param \DateTime $dob
      *
-     * @return UserTianos
+     * @return User
      */
     public function setDob($dob)
     {
@@ -452,7 +374,7 @@ class UserTianos
      *
      * @param string $address
      *
-     * @return UserTianos
+     * @return User
      */
     public function setAddress($address)
     {
@@ -476,7 +398,7 @@ class UserTianos
      *
      * @param string $email
      *
-     * @return UserTianos
+     * @return User
      */
     public function setEmail($email)
     {
@@ -500,7 +422,7 @@ class UserTianos
      *
      * @param string $phone
      *
-     * @return UserTianos
+     * @return User
      */
     public function setPhone($phone)
     {
@@ -524,7 +446,7 @@ class UserTianos
      *
      * @param string $image
      *
-     * @return UserTianos
+     * @return User
      */
     public function setImage($image)
     {
@@ -548,7 +470,7 @@ class UserTianos
      *
      * @param \DateTime $createdAt
      *
-     * @return UserTianos
+     * @return User
      */
     public function setCreatedAt($createdAt)
     {
@@ -572,7 +494,7 @@ class UserTianos
      *
      * @param \DateTime $updatedAt
      *
-     * @return UserTianos
+     * @return User
      */
     public function setUpdatedAt($updatedAt)
     {
@@ -596,7 +518,7 @@ class UserTianos
      *
      * @param boolean $isActive
      *
-     * @return UserTianos
+     * @return User
      */
     public function setIsActive($isActive)
     {
@@ -620,7 +542,7 @@ class UserTianos
      *
      * @param \DateTime $lastAccess
      *
-     * @return UserTianos
+     * @return User
      */
     public function setLastAccess($lastAccess)
     {
@@ -644,7 +566,7 @@ class UserTianos
      *
      * @param \AppBundle\Entity\Profile $profile
      *
-     * @return UserTianos
+     * @return User
      */
     public function setProfile(\AppBundle\Entity\Profile $profile = null)
     {
@@ -664,104 +586,36 @@ class UserTianos
     }
 
     /**
-     * Add course
+     * Add pointOfSale
      *
-     * @param \AppBundle\Entity\Course $course
+     * @param \AppBundle\Entity\PointOfSale $pointOfSale
      *
-     * @return UserTianos
+     * @return User
      */
-    public function addCourse(\AppBundle\Entity\Course $course)
+    public function addPointOfSale(\AppBundle\Entity\PointOfSale $pointOfSale)
     {
-        $this->course[] = $course;
+        $this->pointOfSale[] = $pointOfSale;
 
         return $this;
     }
 
     /**
-     * Remove course
+     * Remove pointOfSale
      *
-     * @param \AppBundle\Entity\Course $course
+     * @param \AppBundle\Entity\PointOfSale $pointOfSale
      */
-    public function removeCourse(\AppBundle\Entity\Course $course)
+    public function removePointOfSale(\AppBundle\Entity\PointOfSale $pointOfSale)
     {
-        $this->course->removeElement($course);
+        $this->pointOfSale->removeElement($pointOfSale);
     }
 
     /**
-     * Get course
+     * Get pointOfSale
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getCourse()
+    public function getPointOfSale()
     {
-        return $this->course;
-    }
-
-    /**
-     * Add groupOfUser
-     *
-     * @param \AppBundle\Entity\GroupOfUsers $groupOfUser
-     *
-     * @return UserTianos
-     */
-    public function addGroupOfUser(\AppBundle\Entity\GroupOfUsers $groupOfUser)
-    {
-        $this->groupOfUsers[] = $groupOfUser;
-
-        return $this;
-    }
-
-    /**
-     * Remove groupOfUser
-     *
-     * @param \AppBundle\Entity\GroupOfUsers $groupOfUser
-     */
-    public function removeGroupOfUser(\AppBundle\Entity\GroupOfUsers $groupOfUser)
-    {
-        $this->groupOfUsers->removeElement($groupOfUser);
-    }
-
-    /**
-     * Get groupOfUsers
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getGroupOfUsers()
-    {
-        return $this->groupOfUsers;
-    }
-
-    /**
-     * Add file
-     *
-     * @param \AppBundle\Entity\Files $file
-     *
-     * @return UserTianos
-     */
-    public function addFile(\AppBundle\Entity\Files $file)
-    {
-        $this->files[] = $file;
-
-        return $this;
-    }
-
-    /**
-     * Remove file
-     *
-     * @param \AppBundle\Entity\Files $file
-     */
-    public function removeFile(\AppBundle\Entity\Files $file)
-    {
-        $this->files->removeElement($file);
-    }
-
-    /**
-     * Get files
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getFiles()
-    {
-        return $this->files;
+        return $this->pointOfSale;
     }
 }

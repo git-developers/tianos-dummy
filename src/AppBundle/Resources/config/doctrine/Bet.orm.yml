@@ -1,8 +1,8 @@
-AppBundle\Entity\Gcm:
+AppBundle\Entity\Bet:
     type: entity
-    table: gcm
+    table: bet
     uniqueConstraints:
-        UNIQ_CF0A2136A76ED395:
+        UNIQ_D044D5D4A76ED395:
             columns:
                 - user_id
     id:
@@ -16,47 +16,43 @@ AppBundle\Entity\Gcm:
             generator:
                 strategy: IDENTITY
     fields:
-        clickAction:
+        matchkey:
             type: string
             nullable: true
             length: 45
             options:
                 fixed: false
-            column: click_action
-        icon:
+            column: matchKey
+        teamHome:
             type: string
             nullable: true
             length: 45
             options:
                 fixed: false
-        color:
+            column: team_home
+        teamAway:
             type: string
             nullable: true
             length: 45
             options:
                 fixed: false
-        sound:
+            column: team_away
+        teamHomeScore:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: team_home_score
+        teamAwayScore:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: team_away_score
+        token:
             type: string
             nullable: true
             length: 45
-            options:
-                fixed: false
-        badge:
-            type: string
-            nullable: true
-            length: 45
-            options:
-                fixed: false
-        title:
-            type: string
-            nullable: true
-            length: 45
-            options:
-                fixed: false
-        body:
-            type: text
-            nullable: true
-            length: 65535
             options:
                 fixed: false
         created:
@@ -70,7 +66,7 @@ AppBundle\Entity\Gcm:
             nullable: false
     manyToOne:
         user:
-            targetEntity: UserTianos
+            targetEntity: User
             cascade: {  }
             fetch: LAZY
             mappedBy: null

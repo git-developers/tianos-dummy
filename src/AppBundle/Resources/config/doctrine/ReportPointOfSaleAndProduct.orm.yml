@@ -1,10 +1,10 @@
-AppBundle\Entity\Assistance:
+AppBundle\Entity\ReportPointOfSaleAndProduct:
     type: entity
-    table: assistance
+    table: report_point_of_sale_and_product
     indexes:
-        fk_assistance_user_tianos1_idx:
+        fk_report_point_of_sale_and_product_point_of_sale_has_produ_idx:
             columns:
-                - user_id
+                - point_of_sale_has_product_id
     id:
         idIncrement:
             type: integer
@@ -16,12 +16,19 @@ AppBundle\Entity\Assistance:
             generator:
                 strategy: IDENTITY
     fields:
-        attended:
-            type: boolean
-            nullable: true
-        createdAt:
+        timeDelivery:
             type: datetime
             nullable: true
+            column: time_delivery
+        stockOut:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: stock_out
+        createdAt:
+            type: datetime
+            nullable: false
             column: created_at
         updatedAt:
             type: datetime
@@ -29,17 +36,17 @@ AppBundle\Entity\Assistance:
             column: updated_at
         isActive:
             type: boolean
-            nullable: true
+            nullable: false
             column: is_active
     manyToOne:
-        user:
-            targetEntity: UserTianos
+        pointOfSaleHasProduct:
+            targetEntity: PointOfSaleHasProduct
             cascade: {  }
             fetch: LAZY
             mappedBy: null
             inversedBy: null
             joinColumns:
-                user_id:
-                    referencedColumnName: id
+                point_of_sale_has_product_id:
+                    referencedColumnName: id_increment
             orphanRemoval: false
     lifecycleCallbacks: {  }
